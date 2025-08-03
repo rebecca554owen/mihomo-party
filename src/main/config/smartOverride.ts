@@ -40,7 +40,7 @@ function main(config) {
 
         // 确保 Smart 组有正确的配置
         if (!group['policy-priority']) {
-          group['policy-priority'] = 'Premium:0.9;SG:1.3'
+          group['policy-priority'] = ''  // policy-priority: <1 means lower priority, >1 means higher priority, the default is 1, pattern support regex and string
         }
         // 始终使用用户配置的值
         group.uselightgbm = ${useLightGBM}
@@ -63,7 +63,7 @@ function main(config) {
         const smartGroup = {
           name: 'Smart Group',
           type: 'smart',
-          'policy-priority': 'Premium:0.9;SG:1.3',
+          'policy-priority': '',  // policy-priority: <1 means lower priority, >1 means higher priority, the default is 1, pattern support regex and string
           uselightgbm: ${useLightGBM},
           collectdata: ${collectData},
           strategy: '${strategy}',
