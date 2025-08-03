@@ -118,18 +118,24 @@ function main(config) {
 
           // 处理字符串格式的规则
           const parts = rule.split(',').map(part => part.trim())
-          if (parts.length >= 3) {
-            // 找到代理组名称的位置（通常是第3个参数，但需要排除规则参数）
+          if (parts.length >= 2) {
+            // 找到代理组名称的位置
             let targetIndex = -1
             let targetValue = ''
 
-            // 从第3个参数开始查找（索引2），找到第一个不是规则参数的值
-            for (let i = 2; i < parts.length; i++) {
-              const part = parts[i]
-              if (!ruleParams.has(part)) {
-                targetIndex = i
-                targetValue = part
-                break
+            // 对于 MATCH 规则，目标在第2个位置（索引1）
+            if (parts[0] === 'MATCH' && parts.length === 2) {
+              targetIndex = 1
+              targetValue = parts[1]
+            } else if (parts.length >= 3) {
+              // 对于其他规则，从第3个参数开始查找（索引2），找到第一个不是规则参数的值
+              for (let i = 2; i < parts.length; i++) {
+                const part = parts[i]
+                if (!ruleParams.has(part)) {
+                  targetIndex = i
+                  targetValue = part
+                  break
+                }
               }
             }
 
